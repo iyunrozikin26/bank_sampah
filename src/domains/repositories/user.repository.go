@@ -1,9 +1,9 @@
 package repositories
 
 import (
-	"fmt"
+	"log"
 
-	models "github.com/iyunrozikin26/bank_sampah.git/src/domain/models"
+	"github.com/iyunrozikin26/bank_sampah.git/src/domains/models"
 	"gorm.io/gorm"
 )
 
@@ -14,13 +14,14 @@ type UserRepository interface {
 	Save(user models.User) (*models.User, error)
 	Update(user models.User) (*models.User, error)
 	Delete(user models.User) (*models.User, error)
+	// SoftDelete(user models.User) (*models.User, error)
 }
 
 type UserRepositoryImpl struct {
 	db *gorm.DB
 }
 
-func NewRepository(db *gorm.DB) UserRepository {
+func NewUserRepository(db *gorm.DB) UserRepository {
 	return &UserRepositoryImpl{db}
 }
 
@@ -37,12 +38,12 @@ func (ur *UserRepositoryImpl) FindOne(id int) models.User {
 	return user
 }
 func (ur *UserRepositoryImpl) Save(user models.User) (*models.User, error) {
-	fmt.Println(user, "userrrrrrrrrrrrrrrrrrrrrrrrrrrr")
+	log.Println(user, "userrrrrrrrrrrrrrrrrrrrrrrrrrrr")
 	result := ur.db.Create(&user)
 	if result != nil {
 		return nil, result.Error
 	}
-	
+
 	return &user, nil
 }
 func (ur *UserRepositoryImpl) Update(user models.User) (*models.User, error) {

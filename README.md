@@ -4,3 +4,8 @@
 3. Service folder dan file to handle logic
 4. Controller folder and file to handle request and response client
 5. Run auto server dengan nodemon `nodemon --exec go run main.go`
+
+For Information
+1. config folder untuk configurasi dan konektifitas ke database
+2. domains folder isinya adalah tempat prosessing request dan response kepada client
+

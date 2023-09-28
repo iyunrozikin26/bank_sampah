@@ -5,16 +5,16 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	userServ "github.com/iyunrozikin26/bank_sampah.git/src/domain/services/user"
+	services "github.com/iyunrozikin26/bank_sampah.git/src/domains/services/user"
 	"github.com/iyunrozikin26/bank_sampah.git/src/helpers"
 )
 
 type UserController struct {
-	userService userServ.UserService
+	userService services.UserService
 	ctx         *gin.Context
 }
 
-func NewUserController(userService userServ.UserService, ctx *gin.Context) UserController {
+func NewUserController(userService services.UserService, ctx *gin.Context) UserController {
 	return UserController{userService, ctx}
 }
 

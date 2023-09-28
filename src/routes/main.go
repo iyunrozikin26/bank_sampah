@@ -5,7 +5,10 @@ import (
 	"github.com/iyunrozikin26/bank_sampah.git/src/config"
 )
 
-var router = gin.Default()
+var (
+	ctx    *gin.Context
+	router = gin.Default()
+)
 
 // func Run will start the server
 func Run() {
@@ -20,7 +23,8 @@ func Run() {
 func getRoutes() {
 	db := config.DB()
 	v1 := router.Group("/api/v1")
-	
+
 	// daftarkan route lainnya
-	addUserRoutes(v1, db)
+	addUserRoutes(ctx,v1, db)
+	addProduRoutes(ctx,v1, db)
 }

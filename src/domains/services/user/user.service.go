@@ -1,14 +1,14 @@
 package services
 
 import (
-	"fmt"
+	"log"
 	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	models "github.com/iyunrozikin26/bank_sampah.git/src/domain/models"
-	userRepo "github.com/iyunrozikin26/bank_sampah.git/src/domain/repositories"
+	models "github.com/iyunrozikin26/bank_sampah.git/src/domains/models"
+	 "github.com/iyunrozikin26/bank_sampah.git/src/domains/repositories"
 )
 
 type UserService interface {
@@ -20,15 +20,14 @@ type UserService interface {
 }
 
 type UserServiceImpl struct {
-	userRepository userRepo.UserRepository
+	userRepository repositories.UserRepository
 }
 
 // constructor
-
-func NewUserService(userRepository userRepo.UserRepository) UserService {
+func NewUserService(userRepository repositories.UserRepository) UserService {
 	return &UserServiceImpl{userRepository}
 }
-
+// us = user service
 func (us *UserServiceImpl) GetAll() []models.User {
 	return us.userRepository.FindAll()
 }
@@ -54,13 +53,14 @@ func (us *UserServiceImpl) Create(ctx *gin.Context) (*models.User, error) {
 		Name:      userInput.Name,
 		Email:     userInput.Email,
 		Password:  userInput.Password,
+		Role:      userInput.Role,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
-	fmt.Println(userPayload, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+	log.Println(userPayload, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
 	result, err := us.userRepository.Save(userPayload)
-	fmt.Println(result, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
-	fmt.Println(err, "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+	log.Println(result, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
+	log.Println(err, "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 	if err != nil {
 		return nil, err
 	}
@@ -81,14 +81,13 @@ func (us *UserServiceImpl) Update(ctx *gin.Context) (*models.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(userInput, "userInputuserInputuserInputuserInputuserInput")
+	log.Println(userInput, "userInputuserInputuserInputuserInputuserInput")
 	// mengisi struck dengan input dari client
 	userPayload := models.User{
 		ID:        int64(id),
 		Name:      userInput.Name,
 		Email:     userInput.Email,
 		Password:  userInput.Password,
-		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
 	result, err := us.userRepository.Update(userPayload)

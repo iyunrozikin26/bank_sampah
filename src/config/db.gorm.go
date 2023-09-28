@@ -1,24 +1,25 @@
 package config
 
 import (
-	"fmt"
+	"log"
 
+	"github.com/iyunrozikin26/bank_sampah.git/src/settings"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 func DB() *gorm.DB {
-	host := "127.0.0.1"
-	port := "3306"
-	dbname := "bank_sampah"
-	username := "root"
-	password := "root"
+	host := settings.GoDotEnvVariable("DBHOST")
+	port := settings.GoDotEnvVariable("DBPORT")
+	dbname := settings.GoDotEnvVariable("DBNAME")
+	username := settings.GoDotEnvVariable("DBUSERNAME")
+	password := settings.GoDotEnvVariable("DBPASSWORD")
 
 	dsn := username + ":" + password + "@tcp(" + host + ":" + port + ")/" + dbname + "?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic("Tidak dapat terkoneksi ke database")
+		panic("=== Tidak dapat terkoneksi ke database ===")
 	}
-	fmt.Println("Koneksi database berhasil")
+	log.Println("=== Koneksi database/gorm berhasil ===")
 	return db
 }

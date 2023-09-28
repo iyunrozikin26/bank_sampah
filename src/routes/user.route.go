@@ -2,27 +2,23 @@ package route
 
 import (
 	"github.com/gin-gonic/gin"
-	userControl "github.com/iyunrozikin26/bank_sampah.git/src/domain/controllers"
-	userRepo "github.com/iyunrozikin26/bank_sampah.git/src/domain/repositories"
-	userServ "github.com/iyunrozikin26/bank_sampah.git/src/domain/services/user"
+	"github.com/iyunrozikin26/bank_sampah.git/src/domains/controllers"
+	"github.com/iyunrozikin26/bank_sampah.git/src/domains/repositories"
+	services "github.com/iyunrozikin26/bank_sampah.git/src/domains/services/user"
 	"gorm.io/gorm"
 )
 
-var (
-	ctx *gin.Context
-)
-
-func addUserRoutes(rg *gin.RouterGroup, db *gorm.DB) {
-	userRepository := userRepo.NewRepository(db)
-	userService := userServ.NewUserService(userRepository)
-	userController := userControl.NewUserController(userService, ctx)
+func addUserRoutes(ctx *gin.Context, rg *gin.RouterGroup, db *gorm.DB) {
+	repository := repositories.NewUserRepository(db)
+	service := services.NewUserService(repository)
+	controller := controllers.NewUserController(service, ctx)
 
 	user := rg.Group("/users")
 	{
-		user.GET("/", userController.Index)
-		user.GET("/:id", userController.GetByID)
-		user.POST("/", userController.Create)
-		user.PATCH("/:id", userController.Update)
-		user.DELETE("/:id", userController.Delete)
+		user.GET("/", controller.Index)
+		user.GET("/:id", controller.GetByID)
+		user.POST("/", controller.Create)
+		user.PATCH("/:id", controller.Update)
+		user.DELETE("/:id", controller.Delete)
 	}
 }
