@@ -40,7 +40,7 @@ func (ur *UserRepositoryImpl) FindOne(id int) models.User {
 func (ur *UserRepositoryImpl) Save(user models.User) (*models.User, error) {
 	log.Println(user, "userrrrrrrrrrrrrrrrrrrrrrrrrrrr")
 	result := ur.db.Create(&user)
-	if result != nil {
+	if result.Error != nil {
 		return nil, result.Error
 	}
 
@@ -48,14 +48,14 @@ func (ur *UserRepositoryImpl) Save(user models.User) (*models.User, error) {
 }
 func (ur *UserRepositoryImpl) Update(user models.User) (*models.User, error) {
 	result := ur.db.Save(&user)
-	if result != nil {
+	if result.Error != nil {
 		return nil, result.Error
 	}
 	return &user, nil
 }
 func (ur *UserRepositoryImpl) Delete(user models.User) (*models.User, error) {
 	result := ur.db.Delete(&user)
-	if result != nil {
+	if result.Error != nil {
 		return nil, result.Error
 	}
 	return &user, nil

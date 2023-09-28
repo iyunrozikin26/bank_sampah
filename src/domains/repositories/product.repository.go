@@ -22,14 +22,14 @@ func NewProductRepository(db *gorm.DB) ProductRepository {
 	return &ProductRepositoryImpl{db}
 }
 
-func (revo *ProductRepositoryImpl) FindAll() []models.Product {
+func (repo *ProductRepositoryImpl) FindAll() []models.Product {
 	var products []models.Product
-	_ = revo.db.Find(&products)
+	_ = repo.db.Find(&products)
 	return products
 }
-func (revo *ProductRepositoryImpl) Save(product models.Product) (*models.Product, error) {
-	result := revo.db.Create(&product)
-	if result != nil {
+func (repo *ProductRepositoryImpl) Save(product models.Product) (*models.Product, error) {
+	result := repo.db.Create(&product)
+	if result.Error != nil {
 		return nil, result.Error
 	}
 	return &product, nil

@@ -13,7 +13,7 @@ type User struct {
 	Email     string    `json:"email" gorm:"type:varchar(255)"`
 	Password  string    `json:"password" gorm:"type:varchar(255)"`
 	Role      string    `json:"role" gorm:"type:varchar(25)"`
-	Deleted   bool      `json:"deleted"`
+	Deleted   bool      `json:"deleted" gorm:"default:false"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }

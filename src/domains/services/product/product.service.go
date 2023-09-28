@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator"
+	"github.com/go-playground/validator/v10"
 	"github.com/iyunrozikin26/bank_sampah.git/src/domains/models"
 	"github.com/iyunrozikin26/bank_sampah.git/src/domains/repositories"
 )
@@ -53,7 +53,6 @@ func (serv *ProductServiceImpl) Create(ctx *gin.Context) (*models.Product, error
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
-	log.Println(productPayload, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
 	result, err := serv.productRepository.Save(productPayload)
 	log.Println(result, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
 	log.Println(err, "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")

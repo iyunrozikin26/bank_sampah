@@ -9,7 +9,7 @@ type Product struct {
 	Title     string    `json:"title" gorm:"type:varchar(255)"`
 	Category  string    `json:"category" gorm:"type:varchar(255)"`
 	Author    string    `json:"author" gorm:"type:varchar(255)"`
-	Deleted   bool      `json:"deleted"`
+	Deleted   bool      `json:"deleted" gorm:"default:false"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
