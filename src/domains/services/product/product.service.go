@@ -13,7 +13,7 @@ import (
 // method contracts
 type ProductService interface {
 	GetAll() []models.Product
-	// GetByID(id int) models.Product
+	GetByID(id int) models.Product
 	Create(ctx *gin.Context) (*models.Product, error)
 	// Update(ctx *gin.Context) (*models.Product, error)
 	// Delete(ctx *gin.Context) (*models.Product, error)
@@ -31,6 +31,9 @@ func NewProductService(productRepository repositories.ProductRepository) Product
 // ps = product service
 func (serv *ProductServiceImpl) GetAll() []models.Product {
 	return serv.productRepository.FindAll()
+}
+func (serv *ProductServiceImpl) GetByID(id int) models.Product {
+	return serv.productRepository.FindOne(id)
 }
 
 func (serv *ProductServiceImpl) Create(ctx *gin.Context) (*models.Product, error) {

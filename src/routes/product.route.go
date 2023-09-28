@@ -16,7 +16,7 @@ func addProduRoutes(ctx *gin.Context, rg *gin.RouterGroup, db *gorm.DB) {
 	product := rg.Group("/products")
 	{
 		product.GET("/", controller.IndexProduct)
-		// product.GET("/:id", controller.GetByID)
+		product.GET("/:id", controller.GetByID)
 		product.POST("/", controller.CreateProduct)
 		// product.PATCH("/:id", controller.Update)
 		// product.DELETE("/:id", controller.Delete)

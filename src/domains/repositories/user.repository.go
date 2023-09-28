@@ -1,8 +1,6 @@
 package repositories
 
 import (
-	"log"
-
 	"github.com/iyunrozikin26/bank_sampah.git/src/domains/models"
 	"gorm.io/gorm"
 )
@@ -38,7 +36,6 @@ func (ur *UserRepositoryImpl) FindOne(id int) models.User {
 	return user
 }
 func (ur *UserRepositoryImpl) Save(user models.User) (*models.User, error) {
-	log.Println(user, "userrrrrrrrrrrrrrrrrrrrrrrrrrrr")
 	result := ur.db.Create(&user)
 	if result.Error != nil {
 		return nil, result.Error

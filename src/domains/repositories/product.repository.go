@@ -1,13 +1,16 @@
 package repositories
 
 import (
+	"log"
+
+	"github.com/iyunrozikin26/bank_sampah.git/src/config"
 	"github.com/iyunrozikin26/bank_sampah.git/src/domains/models"
 	"gorm.io/gorm"
 )
 
 type ProductRepository interface {
 	FindAll() []models.Product
-	// FindOne(id int) models.Product
+	FindOne(id int) models.Product
 	Save(product models.Product) (*models.Product, error)
 	// Update(product models.Product) (*models.Product, error)
 	// Delete(product models.Product) (*models.Product, error)
@@ -26,6 +29,25 @@ func (repo *ProductRepositoryImpl) FindAll() []models.Product {
 	var products []models.Product
 	_ = repo.db.Find(&products)
 	return products
+}
+func (repo *ProductRepositoryImpl) FindOne(id int) models.Product {
+	var product models.Product
+	db, _ := config.DBSqlConnect()
+	row := db.QueryRow("SELECT * FROM products WHERE id = ?", id)
+
+	if err := row.Scan(
+		&product.ID,
+		&product.Title,
+		&product.Category,
+		&product.Author,
+		&product.Deleted,
+		&product.CreatedAt,
+		&product.UpdatedAt,
+	); err != nil {
+		log.Println(err)
+
+	}
+	return product
 }
 func (repo *ProductRepositoryImpl) Save(product models.Product) (*models.Product, error) {
 	result := repo.db.Create(&product)

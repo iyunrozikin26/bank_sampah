@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	services "github.com/iyunrozikin26/bank_sampah.git/src/domains/services/product"
@@ -23,6 +24,15 @@ func (pc *ProductController) IndexProduct(ctx *gin.Context) {
 	message = "success get all data"
 	helpers.ResponseJSON(ctx, http.StatusOK, message, data)
 }
+func (pc *ProductController) GetByID(ctx *gin.Context) {
+	id, _ := strconv.Atoi(ctx.Param("id"))
+	data := pc.productService.GetByID(id)
+	var message string
+
+	message = "success get data by ID"
+	helpers.ResponseJSON(ctx, http.StatusOK, message, data)
+}
+
 func (pc *ProductController) CreateProduct(ctx *gin.Context) {
 	data, err := pc.productService.Create(ctx)
 	var message string

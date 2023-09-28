@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-	_, _ = config.DbSqlConnect()
-
+	_, _ = config.DBSqlConnect() // checking sql database connect using sql query
 	routes.Run()
 }

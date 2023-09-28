@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func DB() *gorm.DB {
+func DBgorm() *gorm.DB {
 	host := settings.GoDotEnvVariable("DBHOST")
 	port := settings.GoDotEnvVariable("DBPORT")
 	dbname := settings.GoDotEnvVariable("DBNAME")

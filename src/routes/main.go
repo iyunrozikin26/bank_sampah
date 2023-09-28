@@ -21,10 +21,10 @@ func Run() {
 // so this one won't be so messy
 
 func getRoutes() {
-	db := config.DB()
+	db := config.DBgorm() // checking gorm database connect using gorm
 	v1 := router.Group("/api/v1")
 
 	// daftarkan route lainnya
-	addUserRoutes(ctx,v1, db)
-	addProduRoutes(ctx,v1, db)
+	addUserRoutes(ctx, v1, db)
+	addProduRoutes(ctx, v1, db)
 }
