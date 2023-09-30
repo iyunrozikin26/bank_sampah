@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/iyunrozikin26/bank_sampah.git/src/config"
-	routes "github.com/iyunrozikin26/bank_sampah.git/src/routes"
+	"github.com/nasrunrozikinmm/bank_sampah.git/src/config"
+	routes "github.com/nasrunrozikinmm/bank_sampah.git/src/routes"
 )
 
 func main() {

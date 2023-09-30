@@ -2,7 +2,7 @@ package route
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/iyunrozikin26/bank_sampah.git/src/modules/product"
+	"github.com/nasrunrozikinmm/bank_sampah.git/src/modules/product"
 	"gorm.io/gorm"
 )
 

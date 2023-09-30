@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/iyunrozikin26/bank_sampah.git/src/settings"
+	"github.com/nasrunrozikinmm/bank_sampah.git/src/settings"
 )
 
 func DBSqlConnect() (*sql.DB, error) {

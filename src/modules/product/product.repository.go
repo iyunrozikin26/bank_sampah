@@ -3,7 +3,7 @@ package product
 import (
 	"log"
 
-	"github.com/iyunrozikin26/bank_sampah.git/src/config"
+	"github.com/nasrunrozikinmm/bank_sampah.git/src/config"
 	"gorm.io/gorm"
 )
 

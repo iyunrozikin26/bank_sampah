@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/iyunrozikin26/bank_sampah.git/src/helpers"
+	"github.com/nasrunrozikinmm/bank_sampah.git/src/helpers"
 )
 
 type ProductController struct {

@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	dto "github.com/iyunrozikin26/bank_sampah.git/src/modules/user/dto"
+	dto "github.com/nasrunrozikinmm/bank_sampah.git/src/modules/user/dto"
 )
 
 type UserService interface {

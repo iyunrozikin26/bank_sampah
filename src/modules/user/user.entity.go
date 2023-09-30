@@ -3,7 +3,7 @@ package user
 import (
 	"time"
 
-	"github.com/iyunrozikin26/bank_sampah.git/src/helpers"
+	"github.com/nasrunrozikinmm/bank_sampah.git/src/helpers"
 	"gorm.io/gorm"
 )
 

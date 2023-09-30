@@ -1,4 +1,4 @@
-module github.com/iyunrozikin26/bank_sampah.git
+module github.com/nasrunrozikinmm/bank_sampah.git
 
 go 1.20
 

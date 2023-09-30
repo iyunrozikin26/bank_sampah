@@ -3,7 +3,7 @@ package config
 import (
 	"log"
 
-	"github.com/iyunrozikin26/bank_sampah.git/src/settings"
+	"github.com/nasrunrozikinmm/bank_sampah.git/src/settings"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
