@@ -1,20 +1,19 @@
-package repositories
+package product
 
 import (
 	"log"
 
 	"github.com/iyunrozikin26/bank_sampah.git/src/config"
-	"github.com/iyunrozikin26/bank_sampah.git/src/domains/models"
 	"gorm.io/gorm"
 )
 
 type ProductRepository interface {
-	FindAll() []models.Product
-	FindOne(id int) models.Product
-	Save(product models.Product) (*models.Product, error)
-	// Update(product models.Product) (*models.Product, error)
-	// Delete(product models.Product) (*models.Product, error)
-	// SoftDelete(product models.Product) (*models.Product, error)
+	FindAll() []Product
+	FindOne(id int) Product
+	Save(product Product) (*Product, error)
+	// Update(product Product) (*Product, error)
+	// Delete(product Product) (*Product, error)
+	// SoftDelete(product Product) (*Product, error)
 }
 
 type ProductRepositoryImpl struct {
@@ -25,13 +24,13 @@ func NewProductRepository(db *gorm.DB) ProductRepository {
 	return &ProductRepositoryImpl{db}
 }
 
-func (repo *ProductRepositoryImpl) FindAll() []models.Product {
-	var products []models.Product
+func (repo *ProductRepositoryImpl) FindAll() []Product {
+	var products []Product
 	_ = repo.db.Find(&products)
 	return products
 }
-func (repo *ProductRepositoryImpl) FindOne(id int) models.Product {
-	var product models.Product
+func (repo *ProductRepositoryImpl) FindOne(id int) Product {
+	var product Product
 	db, _ := config.DBSqlConnect()
 	row := db.QueryRow("SELECT * FROM products WHERE id = ?", id)
 
@@ -49,7 +48,7 @@ func (repo *ProductRepositoryImpl) FindOne(id int) models.Product {
 	}
 	return product
 }
-func (repo *ProductRepositoryImpl) Save(product models.Product) (*models.Product, error) {
+func (repo *ProductRepositoryImpl) Save(product Product) (*Product, error) {
 	result := repo.db.Create(&product)
 	if result.Error != nil {
 		return nil, result.Error

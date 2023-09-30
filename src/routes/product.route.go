@@ -2,16 +2,14 @@ package route
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/iyunrozikin26/bank_sampah.git/src/domains/controllers"
-	"github.com/iyunrozikin26/bank_sampah.git/src/domains/repositories"
-	services "github.com/iyunrozikin26/bank_sampah.git/src/domains/services/product"
+	"github.com/iyunrozikin26/bank_sampah.git/src/modules/product"
 	"gorm.io/gorm"
 )
 
 func addProduRoutes(ctx *gin.Context, rg *gin.RouterGroup, db *gorm.DB) {
-	repository := repositories.NewProductRepository(db)
-	service := services.NewProductService(repository)
-	controller := controllers.NewProductController(service, ctx)
+	repository := product.NewProductRepository(db)
+	service := product.NewProductService(repository)
+	controller := product.NewProductController(service, ctx)
 
 	product := rg.Group("/products")
 	{

@@ -2,16 +2,14 @@ package route
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/iyunrozikin26/bank_sampah.git/src/domains/controllers"
-	"github.com/iyunrozikin26/bank_sampah.git/src/domains/repositories"
-	services "github.com/iyunrozikin26/bank_sampah.git/src/domains/services/user"
+	"github.com/iyunrozikin26/bank_sampah.git/src/modules/user"
 	"gorm.io/gorm"
 )
 
 func addUserRoutes(ctx *gin.Context, rg *gin.RouterGroup, db *gorm.DB) {
-	repository := repositories.NewUserRepository(db)
-	service := services.NewUserService(repository)
-	controller := controllers.NewUserController(service, ctx)
+	repository := user.NewUserRepository(db)
+	service := user.NewUserService(repository)
+	controller := user.NewUserController(service, ctx)
 
 	user := rg.Group("/users")
 	{

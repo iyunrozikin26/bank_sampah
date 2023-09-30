@@ -1,20 +1,19 @@
-package controllers
+package user
 
 import (
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	services "github.com/iyunrozikin26/bank_sampah.git/src/domains/services/user"
 	"github.com/iyunrozikin26/bank_sampah.git/src/helpers"
 )
 
 type UserController struct {
-	userService services.UserService
+	userService UserService
 	ctx         *gin.Context
 }
 
-func NewUserController(userService services.UserService, ctx *gin.Context) UserController {
+func NewUserController(userService UserService, ctx *gin.Context) UserController {
 	return UserController{userService, ctx}
 }
 

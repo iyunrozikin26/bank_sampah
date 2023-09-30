@@ -1,20 +1,19 @@
-package controllers
+package product
 
 import (
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	services "github.com/iyunrozikin26/bank_sampah.git/src/domains/services/product"
 	"github.com/iyunrozikin26/bank_sampah.git/src/helpers"
 )
 
 type ProductController struct {
-	productService services.ProductService
+	productService ProductService
 	ctx            *gin.Context
 }
 
-func NewProductController(productService services.ProductService, ctx *gin.Context) ProductController {
+func NewProductController(productService ProductService, ctx *gin.Context) ProductController {
 	return ProductController{productService, ctx}
 }
 

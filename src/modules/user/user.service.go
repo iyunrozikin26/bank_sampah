@@ -1,43 +1,42 @@
-package services
+package user
 
 import (
-	"log"
 	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	models "github.com/iyunrozikin26/bank_sampah.git/src/domains/models"
-	 "github.com/iyunrozikin26/bank_sampah.git/src/domains/repositories"
+	dto "github.com/iyunrozikin26/bank_sampah.git/src/modules/user/dto"
 )
 
 type UserService interface {
-	GetAll() []models.User
-	GetByID(id int) models.User
-	Create(ctx *gin.Context) (*models.User, error) // ctx *gin.Context untuk menangkap params, query, dll dari input user
-	Update(ctx *gin.Context) (*models.User, error)
-	Delete(ctx *gin.Context) (*models.User, error)
+	GetAll() []User
+	GetByID(id int) User
+	Create(ctx *gin.Context) (*User, error) // ctx *gin.Context untuk menangkap params, query, dll dari input user
+	Update(ctx *gin.Context) (*User, error)
+	Delete(ctx *gin.Context) (*User, error)
 }
 
 type UserServiceImpl struct {
-	userRepository repositories.UserRepository
+	userRepository UserRepository
 }
 
 // constructor
-func NewUserService(userRepository repositories.UserRepository) UserService {
+func NewUserService(userRepository UserRepository) UserService {
 	return &UserServiceImpl{userRepository}
 }
+
 // us = user service
-func (us *UserServiceImpl) GetAll() []models.User {
+func (us *UserServiceImpl) GetAll() []User {
 	return us.userRepository.FindAll()
 }
 
-func (us *UserServiceImpl) GetByID(id int) models.User {
+func (us *UserServiceImpl) GetByID(id int) User {
 	return us.userRepository.FindOne(id)
 }
 
-func (us *UserServiceImpl) Create(ctx *gin.Context) (*models.User, error) {
-	var userInput CreateUserDTO
+func (us *UserServiceImpl) Create(ctx *gin.Context) (*User, error) {
+	var userInput dto.CreateUserDTO
 	// binding to JSON
 	if err := ctx.ShouldBindJSON(&userInput); err != nil {
 		return nil, err
@@ -49,7 +48,7 @@ func (us *UserServiceImpl) Create(ctx *gin.Context) (*models.User, error) {
 		return nil, err
 	}
 	// mengisi struck dengan input dari client
-	userPayload := models.User{
+	userPayload := User{
 		Name:      userInput.Name,
 		Email:     userInput.Email,
 		Password:  userInput.Password,
@@ -57,19 +56,16 @@ func (us *UserServiceImpl) Create(ctx *gin.Context) (*models.User, error) {
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
-	log.Println(userPayload, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
 	result, err := us.userRepository.Save(userPayload)
-	log.Println(result, "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
-	log.Println(err, "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
 	if err != nil {
 		return nil, err
 	}
 	return result, nil
 }
 
-func (us *UserServiceImpl) Update(ctx *gin.Context) (*models.User, error) {
+func (us *UserServiceImpl) Update(ctx *gin.Context) (*User, error) {
 	id, _ := strconv.Atoi(ctx.Param("id"))
-	var userInput UpdateUserDTO
+	var userInput dto.UpdateUserDTO
 
 	// binding to JSON
 	if err := ctx.ShouldBindJSON(&userInput); err != nil {
@@ -81,9 +77,8 @@ func (us *UserServiceImpl) Update(ctx *gin.Context) (*models.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.Println(userInput, "userInputuserInputuserInputuserInputuserInput")
 	// mengisi struck dengan input dari client
-	userPayload := models.User{
+	userPayload := User{
 		ID:        int64(id),
 		Name:      userInput.Name,
 		Email:     userInput.Email,
@@ -97,9 +92,9 @@ func (us *UserServiceImpl) Update(ctx *gin.Context) (*models.User, error) {
 	return result, nil
 }
 
-func (us *UserServiceImpl) Delete(ctx *gin.Context) (*models.User, error) {
+func (us *UserServiceImpl) Delete(ctx *gin.Context) (*User, error) {
 	id, _ := strconv.Atoi(ctx.Param("id")) // untuk mendapatkan id dan Atoi to mengconvert to ParseInt
-	user := models.User{
+	user := User{
 		ID: int64(id),
 	}
 	result, err := us.userRepository.Delete(user)
